@@ -1,0 +1,79 @@
+body {
+  background-color: #323232;
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.title {
+  color: white; /* Set color to white */
+  text-align: center; /* Align text at center */
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 60px;
+}
+
+#content table {
+  border-collapse: collapse;
+  border: none; /* Remove default table border */
+}
+
+#content td {
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  font-size: 3em;
+  cursor: pointer;
+}
+
+#content td:hover {
+  background-color: #ffffff3f;
+}
+
+/* Set borders for inner sides only */
+#content td {
+  border-left: 5px solid #fff;
+  border-top: 5px solid #fff;
+}
+
+/* Remove outer borders for first and last columns */
+#content td:first-child {
+  border-left: none;
+}
+
+#content td:last-child {
+  border-right: none;
+}
+
+/* Remove outer borders for first and last rows */
+#content tr:first-child td {
+  border-top: none;
+}
+
+#content tr:last-child td {
+  border-bottom: none;
+}
+
+/* Styling for X symbol */
+#content td[data-content="X"] {
+  color: #ffc000; /* Set color to yellow for X */
+  font-size: 60px;
+  font-weight: bold;
+}
+
+/* Styling for O symbol */
+#content td[data-content="O"] {
+  color: #00b0f0; /* Set color to blue for O */
+  font-size: 60px;
+  font-weight: bold;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
