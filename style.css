@@ -17,6 +17,10 @@ body {
   margin-bottom: 60px;
 }
 
+#content {
+  position: relative;
+}
+
 #content table {
   border-collapse: collapse;
   border: none; /* Remove default table border */
