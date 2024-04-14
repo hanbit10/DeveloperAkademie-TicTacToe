@@ -63,17 +63,20 @@ function checkWin() {
   for (const combination of winningCombinations) {
     const [a, b, c] = combination;
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      alert(`Player ${board[a]} wins!`);
       drawWinningLine(combination); // Draw the winning line
+      console.log(combination);
       // You might want to reset the game here
+      // Inside the checkWin function after the alert for win or draw
+      let restart = document.getElementById("restartButton");
+      restart.classList.remove("d-none");
       return;
     }
   }
 
   // Check for draw condition
   if (!board.includes("")) {
-    alert("It's a draw!");
     // You might want to reset the game here
+    restartGame();
   }
 }
 
@@ -122,6 +125,12 @@ function generateXSVG() {
 }
 
 function drawWinningLine(combination) {
+  // Remove any existing winning lines
+  const existingLine = document.querySelector(".winning-line");
+  if (existingLine) {
+    existingLine.remove();
+  }
+
   const lineColor = "#ffffff";
   const lineWidth = 8;
 
@@ -132,10 +141,13 @@ function drawWinningLine(combination) {
 
   const contentRect = document.getElementById("content").getBoundingClientRect();
 
-  const lineLength = Math.sqrt(Math.pow(endRect.left - startRect.left, 2) + Math.pow(endRect.top - startRect.top, 2));
+  // Calculate line length to extend beyond the boundaries of the cells
+  const lineLength = Math.sqrt(Math.pow(endRect.left - startRect.left, 2) + Math.pow(endRect.top - startRect.top, 2)); // Adjust as needed
+
   const lineAngle = Math.atan2(endRect.top - startRect.top, endRect.left - startRect.left);
 
   const line = document.createElement("div");
+  line.className = "winning-line"; // Add a class to identify winning lines
   line.style.position = "absolute";
   line.style.width = `${lineLength}px`;
   line.style.height = `${lineWidth}px`;
@@ -145,4 +157,20 @@ function drawWinningLine(combination) {
   line.style.transform = `rotate(${lineAngle}rad)`;
   line.style.transformOrigin = `top left`;
   document.getElementById("content").appendChild(line);
+}
+
+function restartGame() {
+  // Clear the board
+  const boardCells = document.querySelectorAll("td");
+  boardCells.forEach((cell) => {
+    cell.innerHTML = "";
+    cell.setAttribute("data-content", "");
+  });
+
+  // Reset the board array
+  board = ["", "", "", "", "", "", "", "", ""];
+
+  // Remove any winning lines
+  const winningLines = document.querySelectorAll(".winning-line");
+  winningLines.forEach((line) => line.remove());
 }

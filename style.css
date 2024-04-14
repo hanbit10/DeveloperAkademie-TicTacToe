@@ -81,3 +81,7 @@ body {
     stroke-dashoffset: 0;
   }
 }
+
+.d-none {
+  display: none;
+}
